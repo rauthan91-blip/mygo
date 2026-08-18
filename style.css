@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.header {
+    background: #173b6c;
+    color: white;
+    text-align: center;
+    padding: 35px 15px;
+}
+
+.header h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 18px;
+}
+
+.search-section {
+    padding: 25px 0;
+    background: white;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+main {
+    padding: 30px 0;
+}
+
+main h2 {
+    margin-bottom: 20px;
+}
+
+.go-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.go-info h3 {
+    color: #173b6c;
+    margin-bottom: 8px;
+}
+
+.go-info p {
+    margin: 5px 0;
+}
+
+.view-btn {
+    background: #198754;
+    color: white;
+    padding: 10px 18px;
+    text-decoration: none;
+    border-radius: 5px;
+    white-space: nowrap;
+}
+
+.view-btn:hover {
+    background: #146c43;
+}
+
+footer {
+    margin-top: 30px;
+    background: #173b6c;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+
+@media (max-width: 600px) {
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .go-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .view-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+}
