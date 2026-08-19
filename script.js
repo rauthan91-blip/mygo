@@ -14,7 +14,7 @@ async function loadGOs() {
     try {
 
         const apiURL =
-            https://api.github.com/repos/${GITHUB_USERNAME}/${REPOSITORY_NAME}/contents/${GO_FOLDER};
+            'https://api.github.com/repos/${GITHUB_USERNAME}/${REPOSITORY_NAME}/contents/${GO_FOLDER}';
 
         const response = await fetch(apiURL);
 
