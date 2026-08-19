@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    color: #222;
+}
+header{
+    background: #174a7e;
+    color: white;
+    text-align: center;
+    padding: 25px 15px;
+}
+header h1{
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+header p{
+    font-size: 16px;
+}
+main{
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+.search-box{
+    margin-bottom: 25px;
+}
+.search-box input{
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+}
+.search-box input:focus{
+    border-color: #174a7e;
+}
+.go-list{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.go-card{
+    background: white;
+    padding: 18px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+.go-name{
+    font-size: 17px;
+    font-weight: 600;
+    word-break: break-word;
+}
+.buttons{
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.buttons a{
+    text-decoration: none;
+    padding: 9px 14px;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+}
+.view-btn{
+    background: #198754;
+}
+.download-btn{
+    background: #0d6efd;
+}
+.loading{
+    text-align: center;
+    padding: 30px;
+}
+@media (max-width: 600px)
+{
+    header h1{
+        font-size: 24px;
+    }
+    .go-card{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .buttons{
+        width: 100%;
+    }
+    .buttons a{
+        flex: 1;
+        text-align: center;
+    }
+}
+
