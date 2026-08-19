@@ -1,4 +1,5 @@
-alert("JavaScript chal raha hai")
+alert("JavaScript chal raha hai");
+
 const GITHUB_USERNAME = "rauthan91-blip";
 const REPOSITORY_NAME = "mygo";
 const GO_FOLDER = "GO";
@@ -71,14 +72,14 @@ function displayGOs(files) {
 
             <div class="buttons">
 
-                <a 
-                    href="${file.html_url}"
+                <a
+                    href="${file.download_url}"
                     target="_blank"
                     class="view-btn">
                     👁️ View
                 </a>
 
-                <a 
+                <a
                     href="${file.download_url}"
                     class="download-btn"
                     download>
@@ -89,6 +90,7 @@ function displayGOs(files) {
         `;
 
         goList.appendChild(card);
+
     });
 }
 
@@ -102,6 +104,7 @@ searchInput.addEventListener("input", function () {
     );
 
     displayGOs(filteredGOs);
+
 });
 
 
