@@ -1,3 +1,4 @@
+alert("JavaScript chal raha hai")
 const GITHUB_USERNAME = "rauthan91-blip";
 const REPOSITORY_NAME = "mygo";
 const GO_FOLDER = "GO";
