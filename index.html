@@ -1,27 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Department GO Portal</title>
+
+    <title>GO Online Portal</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <header>
-        <h1>
-            Alpsankhyak Department GO Portal
-        </h1>
-        <p>Goverment Order</p>
-    </header>
-    <main>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="GO का नाम/विषय से खोजें">
-        </div>
-        <div id="goList" class="go-list">
-            <p class="loading">GO Loading....</p>
-        </div>
-    </main>
-    <script src="./script.js"></script>
-    
+
+<header class="header">
+    <div class="header-content">
+        <h1>GO Online Portal</h1>
+        <p>Government Orders – Social Welfare Department</p>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="GO का नाम / विषय / वर्ष खोजें..."
+        >
+
+        <select id="yearFilter">
+            <option value="">सभी वर्ष</option>
+        </select>
+
+        <button onclick="loadGOs()">↻ Refresh</button>
+
+    </section>
+
+    <div class="info">
+        <span>कुल GO : <b id="totalGO">0</b></span>
+    </div>
+
+    <section id="loading" class="loading">
+        GO Loading...
+    </section>
+
+    <section id="goList" class="go-list"></section>
+
+    <section id="noData" class="no-data" style="display:none;">
+        कोई GO उपलब्ध नहीं है।
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 GO Online Portal</p>
+</footer>
+
+<script src="script.js"></script>
+
 </body>
 </html>
