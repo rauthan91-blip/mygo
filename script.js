@@ -2,10 +2,8 @@
 // GITHUB SETTINGS
 // ============================================
 
-const GITHUB_USERNAME = "YOUR_GITHUB_USERNAME";
-
-const GITHUB_REPOSITORY = "GO-Portal";
-
+const GITHUB_USERNAME = "rauthan91-blip";
+const GITHUB_REPOSITORY = "mygo";
 const GO_FOLDER = "GO";
 
 // ============================================
