@@ -1,7 +1,7 @@
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
@@ -9,95 +9,184 @@ body {
     background: #f4f6f9;
     color: #222;
 }
-header{
-    background: #174a7e;
+
+.header {
+    background: linear-gradient(135deg, #173b70, #2563a6);
     color: white;
-    text-align: center;
     padding: 25px 15px;
+    text-align: center;
 }
-header h1{
-    font-size: 30px;
+
+.header h1 {
+    font-size: 32px;
     margin-bottom: 8px;
 }
-header p{
+
+.header p {
     font-size: 16px;
 }
-main{
-    width: 90%;
-    max-width: 1100px;
-    margin: 30px auto;
+
+.container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 25px auto;
 }
-.search-box{
-    margin-bottom: 25px;
-}
-.search-box input{
-    width: 100%;
-    padding: 14px 18px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-}
-.search-box input:focus{
-    border-color: #174a7e;
-}
-.go-list{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-.go-card{
+
+.search-box {
     background: white;
     padding: 18px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-}
-.go-name{
-    font-size: 17px;
-    font-weight: 600;
-    word-break: break-word;
-}
-.buttons{
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
     display: flex;
     gap: 10px;
-    flex-shrink: 0;
+    flex-wrap: wrap;
 }
-.buttons a{
-    text-decoration: none;
-    padding: 9px 14px;
+
+.search-box input {
+    flex: 1;
+    min-width: 250px;
+    padding: 13px;
+    border: 1px solid #ccc;
     border-radius: 6px;
-    color: white;
-    font-size: 14px;
+    font-size: 15px;
 }
-.view-btn{
+
+.search-box select {
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    min-width: 150px;
+}
+
+.search-box button {
+    background: #173b70;
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background: #0f2a52;
+}
+
+.info {
+    margin: 20px 0;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.go-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 18px;
+}
+
+.go-card {
+    background: white;
+    border-radius: 10px;
+    padding: 18px;
+
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
+    transition: 0.2s;
+}
+
+.go-card:hover {
+    transform: translateY(-3px);
+}
+
+.go-icon {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.go-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.go-date {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.view-btn,
+.download-btn {
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: white;
+}
+
+.view-btn {
+    background: #2563a6;
+}
+
+.download-btn {
     background: #198754;
 }
-.download-btn{
-    background: #0d6efd;
-}
-.loading{
+
+.loading {
     text-align: center;
-    padding: 30px;
+    padding: 40px;
+    font-size: 18px;
 }
-@media (max-width: 600px)
-{
-    header h1{
-        font-size: 24px;
+
+.no-data {
+    background: white;
+    padding: 40px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+    background: #173b70;
+    color: white;
+}
+
+@media(max-width:600px) {
+
+    .header h1 {
+        font-size: 25px;
     }
-    .go-card{
+
+    .search-box {
         flex-direction: column;
-        align-items: flex-start;
     }
-    .buttons{
+
+    .search-box input,
+    .search-box select,
+    .search-box button {
         width: 100%;
     }
-    .buttons a{
-        flex: 1;
+
+    .go-list {
+        grid-template-columns: 1fr;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .view-btn,
+    .download-btn {
         text-align: center;
     }
 }
-
