@@ -1,3 +1,4 @@
+```javascript
 alert("JavaScript chal raha hai");
 
 const GITHUB_USERNAME = "rauthan91-blip";
@@ -11,9 +12,9 @@ const searchInput = document.getElementById("searchInput");
 let allGOs = [];
 
 
-// ===============================
-// GitHub से GO PDF Load करना
-// ===============================
+// =====================================
+// GitHub GO Folder से PDF Load करना
+// =====================================
 
 async function loadGOs() {
 
@@ -22,80 +23,116 @@ async function loadGOs() {
         const apiURL =
             `https://api.github.com/repos/${GITHUB_USERNAME}/${REPOSITORY_NAME}/contents/${GO_FOLDER}?ref=${BRANCH}`;
 
-        console.log("GitHub API URL:", apiURL);
+        console.log("API URL:", apiURL);
 
         const response = await fetch(apiURL);
+
+        const data = await response.json();
+
+        console.log("GitHub Response:", data);
 
         if (!response.ok) {
 
             throw new Error(
-                `GitHub Error: ${response.status}`
+                data.message || "GitHub से GO प्राप्त नहीं हो सके"
             );
         }
 
-        const files = await response.json();
+        if (!Array.isArray(data)) {
 
-        console.log("GitHub Files:", files);
+            throw new Error(
+                "GO folder में files नहीं मिलीं"
+            );
+        }
 
         // केवल PDF files
-        allGOs = files.filter(file =>
+        allGOs = data.filter(file =>
             file.type === "file" &&
             file.name.toLowerCase().endsWith(".pdf")
         );
 
         displayGOs(allGOs);
 
-    } catch (error) {
+    }
 
-        console.error("Error:", error);
+    catch (error) {
+
+        console.error("ERROR:", error);
 
         goList.innerHTML = `
+
             <div class="error">
-                <h3>GO load नहीं हो पाए</h3>
-                <p>${error.message}</p>
+
+                <h3>GO Load नहीं हो पाए</h3>
+
                 <p>
-                    कृपया GitHub में <b>GO</b> folder और PDF files check करें।
+                    <b>Error:</b>
+                    ${error.message}
                 </p>
+
+                <p>
+                    Repository:
+                    ${GITHUB_USERNAME}/${REPOSITORY_NAME}
+                </p>
+
+                <p>
+                    Folder:
+                    ${GO_FOLDER}
+                </p>
+
+                <p>
+                    Branch:
+                    ${BRANCH}
+                </p>
+
             </div>
+
         `;
     }
 }
 
 
-// ===============================
+// =====================================
 // GO को Portal पर दिखाना
-// ===============================
+// =====================================
 
 function displayGOs(files) {
 
     if (files.length === 0) {
 
         goList.innerHTML = `
+
             <p class="loading">
-                कोई PDF नहीं मिली।
+                GO folder में कोई PDF नहीं मिली।
             </p>
+
         `;
 
         return;
     }
 
+
     goList.innerHTML = "";
+
 
     files.forEach((file, index) => {
 
-        const card = document.createElement("div");
+        const card =
+            document.createElement("div");
 
         card.className = "go-card";
 
-        // .pdf हटाकर केवल नाम दिखाना
-        const goName = file.name
-            .replace(/\.pdf$/i, "");
+
+        // PDF से .pdf हटाना
+        const goName =
+            file.name.replace(/\.pdf$/i, "");
+
 
         card.innerHTML = `
 
             <div class="go-name">
 
-                <span class="number">
+                <span>
                     ${index + 1}.
                 </span>
 
@@ -103,62 +140,80 @@ function displayGOs(files) {
 
             </div>
 
-            <div class="buttons">
 
-                <a
-                    href="${file.html_url}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="view-btn">
-                    👁️ View
-                </a>
+            <div class="buttons">
 
                 <a
                     href="${file.download_url}"
                     target="_blank"
+                    rel="noopener noreferrer"
+                    class="view-btn">
+
+                    👁️ View
+
+                </a>
+
+
+                <a
+                    href="${file.download_url}"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     class="download-btn">
+
                     ⬇️ Download
+
                 </a>
 
             </div>
 
         `;
 
+
         goList.appendChild(card);
 
     });
+
 }
 
 
-// ===============================
+// =====================================
 // Search
-// ===============================
+// =====================================
 
-searchInput.addEventListener("input", function () {
+searchInput.addEventListener(
+    "input",
+    function () {
 
-    const searchText =
-        this.value.toLowerCase().trim();
-
-    const filteredGOs = allGOs.filter(file =>
-
-        file.name
-            .toLowerCase()
-            .includes(searchText)
-
-    );
-
-    displayGOs(filteredGOs);
-
-});
+        const searchText =
+            this.value
+                .toLowerCase()
+                .trim();
 
 
-// ===============================
-// Security Function
-// ===============================
+        const filteredGOs =
+            allGOs.filter(file =>
+
+                file.name
+                    .toLowerCase()
+                    .includes(searchText)
+
+            );
+
+
+        displayGOs(filteredGOs);
+
+    }
+);
+
+
+// =====================================
+// Security
+// =====================================
 
 function escapeHTML(text) {
 
-    const div = document.createElement("div");
+    const div =
+        document.createElement("div");
 
     div.textContent = text;
 
@@ -166,8 +221,9 @@ function escapeHTML(text) {
 }
 
 
-// ===============================
+// =====================================
 // Portal Start
-// ===============================
+// =====================================
 
 loadGOs();
+```
