@@ -1,104 +1,60 @@
+alert("JavaScript chal raha hai");
+
+const GITHUB_USERNAME = "rauthan91-blip";
+const REPOSITORY_NAME = "mygo";
+const GO_FOLDER = "GO";
+const BRANCH = "main";
+
 const goList = document.getElementById("goList");
 const searchInput = document.getElementById("searchInput");
 
 let allGOs = [];
 
-// ----------------------------------------------------
-// GitHub Repository की जानकारी अपने-आप पता करना
-// ----------------------------------------------------
 
-function getGitHubInfo() {
-
-    const hostname = window.location.hostname;
-    const pathname = window.location.pathname;
-
-    // Example:
-    // username.github.io/repository/
-
-    if (!hostname.endsWith(".github.io")) {
-        return null;
-    }
-
-    const owner = hostname.replace(".github.io", "");
-
-    const parts = pathname
-        .split("/")
-        .filter(Boolean);
-
-    let repo;
-
-    if (parts.length > 0) {
-        repo = parts[0];
-    } else {
-        repo = owner + ".github.io";
-    }
-
-    return {
-        owner: owner,
-        repo: repo,
-        branch: "main",
-        folder: "GO"
-    };
-}
-
-
-// ----------------------------------------------------
-// GO Folder से PDF files प्राप्त करना
-// ----------------------------------------------------
+// ===============================
+// GitHub से GO PDF Load करना
+// ===============================
 
 async function loadGOs() {
 
-    const github = getGitHubInfo();
-
-    if (!github) {
-
-        goList.innerHTML = `
-            <p class="error">
-                यह portal GitHub Pages पर नहीं चल रहा है।
-            </p>
-        `;
-
-        return;
-    }
-
-    const apiURL =
-        `https://api.github.com/repos/${github.owner}/${github.repo}/contents/${github.folder}?ref=${github.branch}`;
-
     try {
+
+        const apiURL =
+            `https://api.github.com/repos/${GITHUB_USERNAME}/${REPOSITORY_NAME}/contents/${GO_FOLDER}?ref=${BRANCH}`;
+
+        console.log("GitHub API URL:", apiURL);
 
         const response = await fetch(apiURL);
 
         if (!response.ok) {
 
             throw new Error(
-                `GitHub API Error: ${response.status}`
+                `GitHub Error: ${response.status}`
             );
         }
 
         const files = await response.json();
 
+        console.log("GitHub Files:", files);
+
         // केवल PDF files
-        allGOs = files
-            .filter(file =>
-                file.type === "file" &&
-                file.name.toLowerCase().endsWith(".pdf")
-            )
-            .sort((a, b) =>
-                a.name.localeCompare(b.name, "hi")
-            );
+        allGOs = files.filter(file =>
+            file.type === "file" &&
+            file.name.toLowerCase().endsWith(".pdf")
+        );
 
         displayGOs(allGOs);
 
     } catch (error) {
 
-        console.error(error);
+        console.error("Error:", error);
 
         goList.innerHTML = `
             <div class="error">
                 <h3>GO load नहीं हो पाए</h3>
+                <p>${error.message}</p>
                 <p>
-                    कृपया जाँच करें कि GitHub में
-                    <b>GO</b> नाम का folder मौजूद है।
+                    कृपया GitHub में <b>GO</b> folder और PDF files check करें।
                 </p>
             </div>
         `;
@@ -106,17 +62,17 @@ async function loadGOs() {
 }
 
 
-// ----------------------------------------------------
-// GO Display
-// ----------------------------------------------------
+// ===============================
+// GO को Portal पर दिखाना
+// ===============================
 
-function displayGOs(gos) {
+function displayGOs(files) {
 
-    if (gos.length === 0) {
+    if (files.length === 0) {
 
         goList.innerHTML = `
-            <p class="no-result">
-                कोई GO उपलब्ध नहीं है।
+            <p class="loading">
+                कोई PDF नहीं मिली।
             </p>
         `;
 
@@ -125,81 +81,80 @@ function displayGOs(gos) {
 
     goList.innerHTML = "";
 
-    gos.forEach((go, index) => {
-
-        // PDF का नाम
-        let goName = go.name
-            .replace(/\.pdf$/i, "")
-            .replace(/_/g, " ");
+    files.forEach((file, index) => {
 
         const card = document.createElement("div");
 
         card.className = "go-card";
 
+        // .pdf हटाकर केवल नाम दिखाना
+        const goName = file.name
+            .replace(/\.pdf$/i, "");
+
         card.innerHTML = `
-            
-            <div class="go-info">
 
-                <div class="go-number">
+            <div class="go-name">
+
+                <span class="number">
                     ${index + 1}.
-                </div>
+                </span>
 
-                <div class="go-name">
-                    📄 ${escapeHTML(goName)}
-                </div>
+                📄 ${escapeHTML(goName)}
 
             </div>
 
-            <div class="go-buttons">
+            <div class="buttons">
 
                 <a
-                    href="${go.download_url}"
+                    href="${file.html_url}"
                     target="_blank"
-                    class="view-btn"
-                >
-                    👁 देखें
+                    rel="noopener noreferrer"
+                    class="view-btn">
+                    👁️ View
                 </a>
 
                 <a
-                    href="${go.download_url}"
-                    download
-                    class="download-btn"
-                >
-                    ⬇ डाउनलोड
+                    href="${file.download_url}"
+                    target="_blank"
+                    class="download-btn">
+                    ⬇️ Download
                 </a>
 
             </div>
+
         `;
 
         goList.appendChild(card);
+
     });
 }
 
 
-// ----------------------------------------------------
+// ===============================
 // Search
-// ----------------------------------------------------
+// ===============================
 
 searchInput.addEventListener("input", function () {
 
     const searchText =
         this.value.toLowerCase().trim();
 
-    const filteredGOs = allGOs.filter(go => {
+    const filteredGOs = allGOs.filter(file =>
 
-        const fileName =
-            go.name.toLowerCase();
+        file.name
+            .toLowerCase()
+            .includes(searchText)
 
-        return fileName.includes(searchText);
-    });
+    );
 
     displayGOs(filteredGOs);
+
 });
 
 
-// ----------------------------------------------------
-// Security
-// ----------------------------------------------------
+// ===============================
+// Security Function
+// ===============================
 
 function escapeHTML(text) {
 
@@ -211,8 +166,8 @@ function escapeHTML(text) {
 }
 
 
-// ----------------------------------------------------
+// ===============================
 // Portal Start
-// ----------------------------------------------------
+// ===============================
 
 loadGOs();
