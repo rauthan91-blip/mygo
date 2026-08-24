@@ -48,8 +48,13 @@ async function loadGOs() {
                 return {
                     name: removeExtension(file.name),
                     fileName: file.name,
-                    url: file.html_url,
+
+                    // PDF सीधे खोलने के लिए RAW URL
+                    url: file.download_url,
+
+                    // Download के लिए भी यही URL
                     downloadUrl: file.download_url,
+
                     year: getYear(file.name)
                 };
 
@@ -124,20 +129,20 @@ function displayGOs(data) {
             </div>
 
             <div class="buttons">
-    <a
-        href="${go.url}"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="view-btn"
-    >
-        👁 View
-    </a>
-</div>
-</div>
 
+                <!-- VIEW BUTTON -->
+                <a
+                    href="${go.url}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="view-btn"
+                >
+                    👁 View
+                </a>
+
+                <!-- DOWNLOAD BUTTON -->
                 <a
                     href="${go.downloadUrl}"
-                    target="_blank"
                     class="download-btn"
                     download
                 >
@@ -145,6 +150,7 @@ function displayGOs(data) {
                 </a>
 
             </div>
+
         `;
 
         goList.appendChild(card);
