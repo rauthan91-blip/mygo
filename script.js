@@ -125,12 +125,14 @@ function displayGOs(data) {
 
             <div class="buttons">
     <a
-        href="javascript:void(0)"
-        onclick="window.open('${go.url}', '_blank')"
+        href="${go.url}"
+        target="_blank"
+        rel="noopener noreferrer"
         class="view-btn"
     >
         👁 View
     </a>
+</div>
 </div>
 
                 <a
