@@ -136,8 +136,7 @@ function displayGOs(data) {
                     target="_blank"
                     class="view-btn">
                     📄 View PDF
-                >
-                    👁 View
+              
                 </a>
 
                 <!-- DOWNLOAD BUTTON -->
