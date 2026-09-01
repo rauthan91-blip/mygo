@@ -132,10 +132,10 @@ function displayGOs(data) {
 
                 <!-- VIEW BUTTON -->
                 <a
-                    href="${go.url}"
+                   href="${go.pdf}"
                     target="_blank"
-                    rel="noopener noreferrer"
-                    class="view-btn"
+                    class="view-btn">
+                    📄 View PDF
                 >
                     👁 View
                 </a>
